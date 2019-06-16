@@ -11,8 +11,6 @@ import Comp from './comp';
 
 type Action = ActionType<typeof actions>;
 
-interface OwnProps {
-}
 
 const App: React.FC = (props) => {
 

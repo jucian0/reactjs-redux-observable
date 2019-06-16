@@ -25,19 +25,13 @@ const initialStateApp:ApplicationState = {
     subscribers: INITIAL_STATE
 }
 
-type Action = ActionType<typeof actions>;
 
-const epicMiddleware = createEpicMiddleware<Action, Action, ApplicationState>();
-
-
-
-
-
+const epicMiddleware = createEpicMiddleware();
 
 
 const composeEnhancers = composeWithDevTools({});
 
-function configureStore(preloadedState: any) {
+function configureStore(preloadedState: ApplicationState) {
    const store = createStore(
       AppReducer,
       preloadedState,

@@ -5,8 +5,9 @@ export enum SubscribersTypes{
 }
 
 export interface Subscriber{
-    id:number,
-    title: string
+    subscriberId:number,
+    subscriberName: string,
+    status: boolean
 }
 
 export interface SubscribersState{
