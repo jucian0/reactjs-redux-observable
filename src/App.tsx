@@ -1,26 +1,24 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useDispatch } from 'react-redux';
+import { SubscribersTypes, SubscribersState } from './store/Subscribers/subscribers.types';
 
-const App: React.FC = () => {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { ActionType } from 'typesafe-actions';
+import { Dispatch,bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as actions from './store/Subscribers/subscriners.action';
+import Comp from './comp';
+
+type Action = ActionType<typeof actions>;
+
+interface OwnProps {
 }
 
+const App: React.FC = (props) => {
+
+  return (
+
+        <Comp/>
+  );
+}
 export default App;
