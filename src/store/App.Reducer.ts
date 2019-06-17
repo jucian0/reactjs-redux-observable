@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import subscribers from './Subscribers/subscribers.reducer';
+import {subscribersReducer as subscribers} from './Subscribers/subscribers.reducer';
 
 const AppReducer = combineReducers({
     subscribers

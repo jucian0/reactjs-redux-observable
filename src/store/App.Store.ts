@@ -1,38 +1,26 @@
 import { SubscribersState } from './Subscribers/subscribers.types';
-import { createStore, applyMiddleware, Store, compose } from 'redux';
+import { createStore, applyMiddleware} from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 import { AppEpic } from './App.Epic';
 import AppReducer from './App.Reducer';
-import * as actions from './Subscribers/subscriners.action';
-import { ActionType } from 'typesafe-actions';
 import { composeWithDevTools } from "redux-devtools-extension";
+import { INITIAL_STATE as subscribers } from './Subscribers/subscribers.reducer';
 
 
 export interface ApplicationState {
-    subscribers: SubscribersState
+   subscribers: SubscribersState
 }
 
-
-
-const INITIAL_STATE: SubscribersState = {
-    subscribers: [],
-    loading: false,
-    error: null
-};
-
-
-const initialStateApp:ApplicationState = {
-    subscribers: INITIAL_STATE
+const initialStateApp: ApplicationState = {
+   subscribers
 }
 
 
 const epicMiddleware = createEpicMiddleware();
-
-
 const composeEnhancers = composeWithDevTools({});
 
-function configureStore(preloadedState: ApplicationState) {
-   const store = createStore(
+const configureStore = (preloadedState: ApplicationState) =>
+   createStore(
       AppReducer,
       preloadedState,
       composeEnhancers(
@@ -42,13 +30,7 @@ function configureStore(preloadedState: ApplicationState) {
       )
    );
 
-   return store;
-}
-
-
 const store = configureStore(initialStateApp);
-
-
 
 epicMiddleware.run(AppEpic)
 

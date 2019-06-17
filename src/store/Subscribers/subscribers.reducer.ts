@@ -20,4 +20,4 @@ const subscribersReducer: Reducer<SubscribersState> = (state = INITIAL_STATE, ac
 }
 
 
-export default subscribersReducer;
+export {subscribersReducer,INITIAL_STATE};

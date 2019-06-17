@@ -1,41 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import { SubscribersState, Subscriber } from './store/Subscribers/subscribers.types';
+import React, { useState, useEffect, useCallback } from 'react';
+import { SubscribersState, Subscriber, SubscribersTypes } from './store/Subscribers/subscribers.types';
 
 import { ActionType } from 'typesafe-actions';
 import { Dispatch, bindActionCreators } from 'redux';
-import { connect, useSelector } from 'react-redux';
-import * as actions from './store/Subscribers/subscriners.action';
+import wrapActionCreators,{ connect, useSelector, useDispatch, useStore } from 'react-redux';
+import * as actions from './store/Subscribers/subscribers.action';
+import MaterialTable from 'material-table';
+import { useAction } from './hooks/useActions';
 
 type Action = ActionType<typeof actions>;
 
 
-const Comp = (props: any) => {
+const Comp: React.FC<any> = (props) => {
 
     const subscribers = useSelector((state: any) => state.subscribers.subscribers)
 
+    
     return (
         <div>
             <h3>Alo Brasil</h3>
             <button onClick={props.getAllRequestStart}>Get All</button>
 
-            <div>
-                <ul>
-                    {
-                        subscribers.map((subscriber: Subscriber) => (
-                            <li key={subscriber.subscriberId}>{subscriber.subscriberName}</li>
-                        ))
-                    }
-                </ul>
+            <div style={{width: 900, marginLeft:100}}>
+                <MaterialTable
+                    title="Basic Sorting Preview"
+                    columns={[
+                        { title: 'ID', field: 'id', type:'string' },
+                        { title: 'Title', field: 'title.rendered', type:'string' },
+                        { title: 'Status', field: 'status', type: 'string'},
+                        { title: 'Link', field: 'link', type: 'string'}
+                    ]}
+                    data={subscribers}
+                
+                />
             </div>
         </div>
     )
 }
 
-const mapStateToProps = (state: any) => ({
-    subscribers: state.subscribers
-});
 
-const mapDispatchToProps = (dispatch: Dispatch<Action>, props: any) => bindActionCreators(
+const mapDispatchToProps = (dispatch: Dispatch<Action>) => bindActionCreators(
     actions, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(Comp);
+export default connect(()=>({}), mapDispatchToProps)(Comp);
