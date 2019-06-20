@@ -10,16 +10,14 @@ import { useAction } from './hooks/useActions';
 
 type Action = ActionType<typeof actions>;
 
-
 const Comp: React.FC<any> = (props) => {
-
+    const dispatch = useDispatch();
     const subscribers = useSelector((state: any) => state.subscribers.subscribers)
-
     
     return (
         <div>
             <h3>Alo Brasil</h3>
-            <button onClick={props.getAllRequestStart}>Get All</button>
+            <button onClick={()=>dispatch(SubscribersTypes.GET_ALL_SUBSCRIBERS_START)}>Get All</button>
 
             <div style={{width: 900, marginLeft:100}}>
                 <MaterialTable
@@ -38,8 +36,4 @@ const Comp: React.FC<any> = (props) => {
     )
 }
 
-
-const mapDispatchToProps = (dispatch: Dispatch<Action>) => bindActionCreators(
-    actions, dispatch);
-
-export default connect(()=>({}), mapDispatchToProps)(Comp);
+export default Comp;
